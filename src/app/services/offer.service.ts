@@ -7,7 +7,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class OfferService {
-  private apiUrl = environment.apiV1Url;
+  private apiUrl = environment.apiUrl;
+  private apiAuth = environment.apiAuth;
+  
   constructor(private http: HttpClient) { }
 
   getOffers(): Observable<Offer[]>{
