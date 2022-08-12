@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Offer } from 'src/app/interfaces/offer';
-import { OfferService } from 'src/app/services/offer.service';
+import { Offer } from '../../interfaces/offer';
+import { OfferService } from '../../services/offer/offer.service';
 
 @Component({
   selector: 'app-offers-list',
@@ -9,13 +9,13 @@ import { OfferService } from 'src/app/services/offer.service';
 })
 export class OffersListComponent implements OnInit {
 
-  offers!: Offer[];
+  offers: Offer[] = [];
   constructor(
-    private offerServic :OfferService,
+    private offerService :OfferService,
     ){}
 
   onGetOffers():void{
-    this.offerServic.getOffers().subscribe(
+    this.offerService.getOffers().subscribe(
       (response) => {
         console.log(response);
         this.offers = response
@@ -25,7 +25,7 @@ export class OffersListComponent implements OnInit {
       )
   }
   onGetOffer(id: number):void{
-    this.offerServic.getOffer(id).subscribe(
+    this.offerService.getOffer(id).subscribe(
       (response) => console.log(response),
       (error: any) => console.log(error),
       () => console.log("Done getting offer bi ID")

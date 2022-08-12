@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiAuth: 'http://192.168.1.113:8000/api/user',
+  apiAuth: 'http://192.168.1.112:8000/api/user',
   apiUrl:'http://192.168.1.113:8000/api/offers',
 
 };
