@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Offer } from '../../interfaces/offer';
 import { environment } from 'src/environments/environment';
-import { User } from '../../interfaces/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,5 +17,8 @@ export class OfferService {
   }
   getOffer(id:number): Observable<Offer>{
     return this.http.get<Offer>(`${this.apiUrl}/${id}`)
+  }
+  getUserOffers(): Observable<Offer[]>{
+    return this.http.get<Offer[]>(`${this.apiUrl}/my-offers`);
   }
 }

@@ -1,25 +1,26 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
     <div class="container-fluid">
       <a class="navbar-brand" routerLink="/">MotoSell</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item" >
-            <a class="nav-link active" aria-current="page" href="#">Twoje oferty</a>
+            <a class="nav-link active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" aria-current="page" routerLink="/my-offers" *ngIf="isLoggedIn" >Twoje oferty</a>
           </li>
           <li>
-            <a class="nav-link active" aria-current="page" href="#">Dodaj nową ofertę</a>
+            <a class="nav-link active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" aria-current="page" routerLink="/add" *ngIf="isLoggedIn" >Dodaj nową ofertę</a>
           </li>
           
         </ul>
         <ul class="navbar-nav mr-auto">
           <li>
-            <a class="nav-link active" aria-current="page" routerLink="/login">Logowanie</a>
+            <a class="nav-link active" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" aria-current="page" routerLink="/login" *ngIf="!isLoggedIn">Logowanie</a>
           </li>
           <li>
-            <a class="nav-link active" aria-current="page" routerLink="/register">Rejestracja</a>
+            <a class="nav-link active" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink="/register" *ngIf="!isLoggedIn">Rejestracja</a>
+            <a class="nav-link active" aria-current="page" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink="/logout" *ngIf="isLoggedIn" (click)="user.logout()">Wyloguj się</a>
           </li>
         </ul>
       </div>

@@ -1,6 +1,6 @@
 <h1 class="text-center">Dostępne oferty sprzedaży</h1>
       <div class="d-flex mt-5 justify-content-center" >
-        <div class="d-flex flex-row" *ngIf="offers && offers.length < 1 ">
+        <div class="d-flex flex-row" *ngIf="offers && offers.length <= 0 ">
           <div class="col text-right">
             <a href="#" class="btn btn-dark">
             Dodaj pierwszą ofertę!
@@ -27,9 +27,9 @@
                       <div class="row"><p>Pojemność: {{offer.capacity}}cm<sup>3</sup></p></div>
                   </div>
               </div>
-              <div class="d-flex flex-row">
+              <div class="d-flex flex-row ">
                 <div class="col justify-content-start"><p class="card-text"><small class="text-muted">Dodano {{offer.pub_date}} przez {{offer.user}}</small></p></div>
-                <div class="col text-right"><a href="#" class="btn btn-dark">Szczegóły</a></div>
+                <div class="col d-flex flex-row-reverse text-right mr-0"><a class="btn btn-dark" routerLink="/details/{{offer.id}}">Szczegóły</a></div>
             </div>
             </div>
           </div>

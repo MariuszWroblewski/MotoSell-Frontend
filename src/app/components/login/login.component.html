@@ -1,17 +1,17 @@
-<div class="container w-50">
-    <h1 class=" text-center">Zaloguj się na swoje konto!</h1>
+<div class="container mt-5 w-50 border pt-3 pb-3 border-dark border-radius border-2 rounded shadow-lg bg-dark bg-gradient text-white">
+    <h1 class=" text-center">Zaloguj się na konto</h1>
     <div class="container w-75 mt-3">
-        <form>
-            <div class="form-outline">
+        <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+            <div class="form-outline mb-2">
                 <label class="form-label" for="Username">Username:</label>
-                <input type="text" id="Username" class="form-control" />
+                <input type="text" id="Username" class="form-control" formControlName="username" />
               </div>
             <div class="form-outline mb-4">
                 <label class="form-label" for="password">Password:</label>
-            <input type="password" id="password" class="form-control" />
+            <input type="password" id="password" class="form-control" formControlName="password" />
             </div>
             <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-dark btn-block mb-4">Zaloguj</button>
+                <button type="submit" class="btn btn-secondary btn-block mb-4">Zaloguj się!</button>
             </div>
         </form>
     </div>

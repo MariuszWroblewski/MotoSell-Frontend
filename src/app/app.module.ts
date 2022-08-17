@@ -9,7 +9,9 @@ import { OfferDetailsComponent } from './components/offer-details/offer-details.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { AddOfferComponent } from './components/add-offer/add-offer.component';
+import { MyOffersComponent } from './components/my-offers/my-offers.component';
+import { httpInterceptorProviders } from './/interceptors/index';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     OfferDetailsComponent,
     LoginComponent,
     RegisterComponent,
+    AddOfferComponent,
+    MyOffersComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

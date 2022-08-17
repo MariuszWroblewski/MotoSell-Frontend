@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
+import { Token } from '../../interfaces/token';
+import { User } from '../../interfaces/user';
 import { environment } from 'src/environments/environment';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +13,32 @@ import { environment } from 'src/environments/environment';
 export class UserService {
   private apiAuth = environment.apiAuth;
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   registerUser(user: User): Observable<User>{
     return this.http.post<User>(`${this.apiAuth}/register/`, user)
+  }
+
+  login(user: User) {
+    return this.http.post<Token>(`${this.apiAuth}/login/`, user).pipe(tap(res => {
+    console.log(res.access);
+    localStorage.setItem('access_token', res.access);
+    localStorage.setItem('refresh_token', res.refresh);
+    console.log("acces token=", localStorage.getItem('access_token'));
+    this.router.navigate(['']).then(() => {
+      window.location.reload();
+    })
+    }))
+  }
+  
+  logout() {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['']).then(() => {
+      window.location.reload();
+    })
+  }
+
+  public get loggedIn(): boolean{
+    return localStorage.getItem('access_token') !==  null;
   }
 }

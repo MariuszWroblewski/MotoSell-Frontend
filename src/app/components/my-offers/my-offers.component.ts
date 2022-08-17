@@ -1,26 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '../../services/user/user.service';
+import { Component, OnInit } from '@angular/core';
 import { Offer } from '../../interfaces/offer';
 import { OfferService } from '../../services/offer/offer.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
-  selector: 'app-offers-list',
-  templateUrl: './offers-list.component.html',
-  styleUrls: ['./offers-list.component.css']
+  selector: 'app-my-offers',
+  templateUrl: './my-offers.component.html',
+  styleUrls: ['./my-offers.component.css']
 })
-export class OffersListComponent implements OnInit {
+export class MyOffersComponent implements OnInit {
 
   offers: Offer[] = [];
   constructor(private offerService: OfferService,
     private userService :UserService){}
 
   onGetOffers():void{
-    this.offerService.getOffers().subscribe(
+    this.offerService.getUserOffers().subscribe(
       {
         next: (data) => this.offers=data,
         error: (e) => console.error(e),
         complete: () => {
-          console.log('complete');
+          console.log(this.offers);
         } 
       }
   )
