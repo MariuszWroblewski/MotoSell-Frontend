@@ -6,6 +6,7 @@ import { User } from '../../interfaces/user';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,11 @@ import { Router } from '@angular/router';
 export class UserService {
   private apiAuth = environment.apiAuth;
   
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+     private router: Router,
+     public jwtHelper: JwtHelperService,
+     ) {}
 
   registerUser(user: User): Observable<User>{
     return this.http.post<User>(`${this.apiAuth}/register/`, user)
@@ -40,5 +45,10 @@ export class UserService {
 
   public get loggedIn(): boolean{
     return localStorage.getItem('access_token') !==  null;
+  }
+  public isAuthenticated(): boolean{
+    const token: string = localStorage.getItem('access_token')!;
+    return !this.jwtHelper.isTokenExpired(token);
+
   }
 }

@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { httpInterceptorProviders } from './/interceptors/index';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +29,11 @@ import { httpInterceptorProviders } from './/interceptors/index';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-  ],
+    ],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
