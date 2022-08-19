@@ -1,3 +1,13 @@
+<h1 class="text-center">Twoje oferty sprzedaży</h1>
+      <div class="d-flex mt-5 justify-content-center" >
+        <div class="d-flex flex-row" *ngIf="offers && offers.length <= 0 ">
+          <div class="col text-right">
+            <a href="#" class="btn btn-dark" routerLink="/add">
+            Dodaj pierwszą ofertę!
+            </a>
+          </div>
+        </div>
+      </div>
 <div class="container d-flex w-75 " *ngFor="let offer of offers">
   <div class="card mb-3 w-auto" >
     <div class="row w-auto">
@@ -10,7 +20,7 @@
           <p class="card-text">{{offer.brand}} {{offer.model}}</p>
           <div class="d-flex flex-row align-items-end ">
             <div class="col justify-content-start"><p class="card-text"><small class="text-muted">Dodano {{offer.pub_date}}</small></p></div>
-            <div class="col d-flex flex-row-reverse text-right mr-0"><a class="btn btn-dark" routerLink="details/{{offer.id}}">Edytuj</a></div>
+            <div class="col d-flex flex-row-reverse text-right mr-0"><a class="btn btn-dark" routerLink="my-offers/details/{{offer.id}}">Edytuj</a></div>
         </div>
         </div>
       </div>

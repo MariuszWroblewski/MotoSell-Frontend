@@ -6,7 +6,7 @@ import { OffersListComponent } from './components/offers-list/offers-list.compon
 import { RegisterComponent } from './components/register/register.component';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/authGuard/auth-guard.service';
 import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-details.component';
 
 const routes: Routes = [

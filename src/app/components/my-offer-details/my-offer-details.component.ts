@@ -10,7 +10,7 @@ import { OfferService } from '../../services/offer/offer.service';
 })
 export class MyOfferDetailsComponent implements OnInit {
   private id: number= 0;
-  private offer!: Offer;
+  offer!: Offer;
   public subDestription:string = this.offer.description.substring(0,50);
   constructor(private ar: ActivatedRoute,
     private offerService: OfferService) { }

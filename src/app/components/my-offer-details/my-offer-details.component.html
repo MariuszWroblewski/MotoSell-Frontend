@@ -1,1 +1,31 @@
-<p>my-offer-details works!</p>
+<div class="container w-60 ">
+    <div class="card mt-3">
+        <img *ngIf=!offer.image src="../../../assets//images/placeholder.png" class="card-img-top" alt="car_img">
+        <img *ngIf=offer.image src={{offer.image}} class="card-img-top" alt="car_img">
+        <div class="card-body">
+            <h5 class="card-title">{{offer.title}}</h5>
+            <div class="d-flex flex-row">
+                <div class="col">
+                    <div class="row"><p>Marka: {{offer.brand}}</p> </div>
+                    <div class="row"><p>Model: {{offer.model}}</p></div>
+                    <div class="row"><p>Rok produkcji: {{offer.production_year}}</p></div>
+                    <div class="row"><p>Moc: {{offer.power}}km</p></div>
+                    <div class="row"><p>Paliwo: {{offer.fuel}}</p></div>
+                </div>
+                <div class="col">
+                    <div class="row"><p >Przebieg: {{offer.mileage}}km</p></div>
+                    <div class="row"><p>Pojemność: {{offer.capacity}}cm<sup>3</sup></p></div>
+                </div>
+            </div>
+            <p class="card-text mt-3">{{offer.description}}</p>
+            <div class="d-flex flex-row">
+                <div class="col justify-content-start">
+                    <p class="card-text">
+                        <small class="text-muted">Opublikowano {{offer.pub_date}} przez {{offer.user}}
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
