@@ -49,6 +49,9 @@ export class UserService {
   public isAuthenticated(): boolean{
     const token: string = localStorage.getItem('access_token')!;
     return !this.jwtHelper.isTokenExpired(token);
-
+  }
+  public decodeToken(): any{
+    const token: string = localStorage.getItem('access_token')!;
+    return this.jwtHelper.decodeToken(token);
   }
 }

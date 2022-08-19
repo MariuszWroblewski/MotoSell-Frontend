@@ -15,7 +15,7 @@ export class OfferDetailsComponent implements OnInit {
     { }
   
     onGetOffer(id: number):void{
-      this.offerService.getOffer(id).subscribe(
+      this.offerService.getOfferDetails(id).subscribe(
         {
           next: (data) => this.offer=data,
           error: (e) => console.error(e),

@@ -7,6 +7,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-details.component';
 
 const routes: Routes = [
   { path: '', component: OffersListComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'details/:id', component: OfferDetailsComponent },
   { path: 'add', component: AddOfferComponent, canActivate: [AuthGuardService] },
   { path: 'my-offers', component: MyOffersComponent, canActivate: [AuthGuardService] },
+  { path: 'my-offers/details/:id', component: MyOfferDetailsComponent, canActivate: [AuthGuardService] },
   { path: '**', redirectTo: '' },
 ];
 

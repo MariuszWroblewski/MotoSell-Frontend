@@ -12,7 +12,8 @@ export class MyOffersComponent implements OnInit {
 
   offers: Offer[] = [];
   constructor(private offerService: OfferService,
-    private userService :UserService){}
+    private userService :UserService
+  ){}
 
   onGetOffers():void{
     this.offerService.getUserOffers().subscribe(
@@ -28,6 +29,8 @@ export class MyOffersComponent implements OnInit {
 
   ngOnInit(): void {
     this.onGetOffers();
+    let toke = this.userService.decodeToken();
+    console.log("tokrn",toke );
   }
 
 }

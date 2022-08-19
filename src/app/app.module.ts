@@ -13,6 +13,7 @@ import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { httpInterceptorProviders } from './/interceptors/index';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +24,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
     RegisterComponent,
     AddOfferComponent,
     MyOffersComponent,
+    MyOfferDetailsComponent,
   ],
   imports: [
     BrowserModule,

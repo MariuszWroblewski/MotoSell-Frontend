@@ -19,9 +19,7 @@ export class OffersListComponent implements OnInit {
       {
         next: (data) => this.offers=data,
         error: (e) => console.error(e),
-        complete: () => {
-          console.log('complete');
-        } 
+        complete: () => console.log("Offers Getting done"), 
       }
   )
   }

@@ -2,7 +2,7 @@
       <div class="d-flex mt-5 justify-content-center" >
         <div class="d-flex flex-row" *ngIf="offers && offers.length <= 0 ">
           <div class="col text-right">
-            <a href="#" class="btn btn-dark">
+            <a href="#" class="btn btn-dark" routerLink="/add">
             Dodaj pierwszą ofertę!
             </a>
           </div>
@@ -11,7 +11,8 @@
       <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
         <div class="col" *ngFor="let offer of offers">
           <div class="card text-right">
-            <img src={{offer.image}} class="card-img-top" alt="car_img" width="1000" height="300">
+            <img *ngIf=!offer.image src="../../../assets//images/placeholder.png" class="card-img-top" alt="car_img" width="1000" height="300">
+            <img *ngIf=offer.image src={{offer.image}} class="card-img-top" alt="car_img" width="1000" height="300">
             <div class="card-body">
               <h5 class="card-title">{{offer.brand}} {{offer.model}}</h5>
                 <div class="d-flex flex-row">

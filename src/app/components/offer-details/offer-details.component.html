@@ -1,6 +1,7 @@
 <div class="container w-60 ">
     <div class="card mt-3">
-        <img src={{offer.image}} class="card-img-top" alt="cycki"/>
+        <img *ngIf=!offer.image src="../../../assets//images/placeholder.png" class="card-img-top" alt="car_img">
+        <img *ngIf=offer.image src={{offer.image}} class="card-img-top" alt="car_img">
         <div class="card-body">
             <h5 class="card-title">{{offer.title}}</h5>
             <div class="d-flex flex-row">

@@ -13,12 +13,24 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   getOffers(): Observable<Offer[]>{
-    return this.http.get<Offer[]>(`${this.apiUrl}`)
+    return this.http.get<Offer[]>(`${this.apiUrl}`);
   }
-  getOffer(id:number): Observable<Offer>{
-    return this.http.get<Offer>(`${this.apiUrl}/${id}`)
+  getOfferDetails(id:number): Observable<Offer>{
+    return this.http.get<Offer>(`${this.apiUrl}/${id}`);
   }
   getUserOffers(): Observable<Offer[]>{
     return this.http.get<Offer[]>(`${this.apiUrl}/my-offers`);
+  }
+  getUserOfferDetails(id:number): Observable<Offer>{
+    return this.http.get<Offer>(`${this.apiUrl}/my-offers/${id}`);
+  }
+  postOffer(offer: Offer): Observable<Offer>{
+    return this.http.post<Offer>(`${this.apiUrl}`, offer)
+  }
+  deleteUserOffer(id: string): Observable<Offer>{
+    return this.http.delete<Offer>(`${this.apiUrl}/my-offers/${id}`);
+  }
+  patchUserOffer(id: string, body: Offer): Observable<Offer>{
+    return this.http.put<Offer>(`${this.apiUrl}/my-offers/${id}`,body);
   }
 }

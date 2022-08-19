@@ -13,6 +13,6 @@ export interface Offer {
     user: string,
     image: string,
     add_date: string,
-    pub_date: string,
-    is_publicated: boolean;
+    pub_date: string | null,
+    is_pub: boolean;
 }
