@@ -4,59 +4,37 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
 } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { UserService } from '../services/user/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
-  private isRefreshing = false;
-  private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  constructor(private userService: UserService) { }
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
-    let authReq = req;
-    const token = this.userService.getToken();
-    if (token != null) {
-      authReq = this.addTokenHeader(req, token);
-    }
-    return next.handle(authReq).pipe(catchError(error => {
-      if (error instanceof HttpErrorResponse && !authReq.url.includes('user/register') && error.status === 403) {
-        return this.handle401Error(authReq, next);
-      }
-      return throwError(() => console.log("error"));
-    }));
-  }
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
-    if (!this.isRefreshing) {
-      this.isRefreshing = true;
-      this.refreshTokenSubject.next(null);
-      const token = this.userService.getRefreshToken();
-      if (token)
-        return this.userService.refreshToken(token).pipe(
-          switchMap((token: any) => {
-            this.isRefreshing = false;
-            this.userService.saveToken(token.accessToken);
-            this.refreshTokenSubject.next(token.accessToken);
-            
-            return next.handle(this.addTokenHeader(request, token.accessToken));
-          }),
-          catchError((err) => {
-            this.isRefreshing = false;
-            
+
+  constructor(private userService: UserService,
+  public jwtHelper: JwtHelperService) { }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const access_token = this.userService.getAccesToken();
+    const refresh_token = this.userService.getRefreshToken();
+    if(access_token && refresh_token){
+        if(this.jwtHelper.isTokenExpired(refresh_token)){
             this.userService.logout();
-            return throwError(() => console.log("error"));
-          })
-        );
+            return next.handle(request);
+        }
+        else if(this.jwtHelper.isTokenExpired(access_token) && !request.url.includes('user/login/refresh')){
+            this.userService.refreshToken(refresh_token)
+                .subscribe(
+                    {
+                        next: (data: any) => this.userService.saveAccessToken(data.access),
+                        error: (e) => console.error(e.error),
+                        complete: () => console.log("done getting new access token"),
+                      }
+                )
+        }
     }
-    return this.refreshTokenSubject.pipe(
-      filter(token => token !== null),
-      take(1),
-      switchMap((token) => next.handle(this.addTokenHeader(request, token)))
-    );
-  }
-  private addTokenHeader(request: HttpRequest<any>, token: string) {
-    return request.clone({setHeaders: {Authorization: token}})
-  }
+    console.log("Request: ", request);
+    return next.handle(request);
+}
 }

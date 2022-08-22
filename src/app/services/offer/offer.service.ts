@@ -24,8 +24,8 @@ export class OfferService {
   getUserOfferDetails(id:number): Observable<Offer>{
     return this.http.get<Offer>(`${this.apiUrl}/my-offers/${id}`);
   }
-  postOffer(offer: Offer): Observable<Offer>{
-    return this.http.post<Offer>(`${this.apiUrl}`, offer)
+  postOffer(offer: FormData): Observable<FormData>{
+    return this.http.post<FormData>(`${this.apiUrl}`, offer)
   }
   deleteUserOffer(id: string): Observable<Offer>{
     return this.http.delete<Offer>(`${this.apiUrl}/my-offers/${id}`);

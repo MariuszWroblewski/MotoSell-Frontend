@@ -17,7 +17,7 @@ export class OffersListComponent implements OnInit {
   onGetOffers():void{
     this.offerService.getOffers().subscribe(
       {
-        next: (data) => {this.offers=data, console.log(data)},
+        next: (data) => this.offers=data,
         error: (e) => console.error(e),
         complete: () => console.log("Offers Getting done"), 
       }

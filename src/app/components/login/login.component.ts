@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(user).subscribe(
       {
         error: (e) => console.error(e.error),
-        complete: () => console.info("Is user logged in", this.userService.loggedIn) 
+        complete: () => console.info("Is user logged in", this.userService.isAuthenticated()) 
       }
       )
   }

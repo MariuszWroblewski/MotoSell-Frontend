@@ -13,8 +13,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class UserService {
   
-  
-  
   private apiAuth = environment.apiAuth;
   
   constructor(
@@ -40,25 +38,22 @@ export class UserService {
   }
   
   logout() {
-    localStorage.removeItem('access_token');
+    localStorage.clear();
     this.router.navigate(['']).then(() => {
       window.location.reload();
     })
   }
-  getToken() {
+  getAccesToken() {
     return localStorage.getItem('access_token');
   }
-  saveToken(accessToken: any) {
+  saveAccessToken(accessToken: string) {
     localStorage.setItem('access_token', accessToken);
   }
   getRefreshToken() {
     return localStorage.getItem('refresh_token');
   }
   refreshToken(token: string) {
-    return this.http.post(`${this.apiAuth}/login/refresh`, token);
-  }
-  public get loggedIn(): boolean{
-    return localStorage.getItem('access_token') !==  null;
+    return this.http.post(`${this.apiAuth}/login/refresh/`, {"refresh": token});
   }
   isAuthenticated(): boolean{
     const token: string = localStorage.getItem('access_token')!;
