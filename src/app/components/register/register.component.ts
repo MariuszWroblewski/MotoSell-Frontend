@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../interfaces/user';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,6 +23,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userService :UserService,
     private formBuilder: FormBuilder,
+    private toastr: ToastrService,
     ){}
 
   isValid(username: string, password1:string, password2: string): boolean{
@@ -47,17 +49,16 @@ export class RegisterComponent implements OnInit {
       )
   }
   onFormSubmit():void{
-    if(this.isValid(this.registerForm.value.username!, this.registerForm.value.password1!, this.registerForm.value.password2!)){
+    // if(this.isValid(this.registerForm.value.username!, this.registerForm.value.password1!, this.registerForm.value.password2!)){
       this.user.username = this.registerForm.value.username!;
       this.user.password = this.registerForm.value.password1!;
       this.onUserRegister(this.user);
-    }
-    return;
+    // }
+    // return;
   }
 
 
   ngOnInit(): void {
-    
   }
 
 }

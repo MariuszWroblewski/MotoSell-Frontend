@@ -14,6 +14,9 @@ import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { httpInterceptorProviders } from './/interceptors/index';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-details.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +34,13 @@ import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
+
     ],
   providers: [
     httpInterceptorProviders,
