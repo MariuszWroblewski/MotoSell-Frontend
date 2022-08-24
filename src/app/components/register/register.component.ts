@@ -6,59 +6,58 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-
   registerForm = new FormGroup({
     username: new FormControl(''),
     password1: new FormControl(''),
     password2: new FormControl(''),
   });
-  user:User = {
+  user: User = {
     username: '',
-    password: ''
-  }
-  error: string = '';
+    password: '',
+  };
+  errorMessage: string = '';
   constructor(
-    private userService :UserService,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,
-    ){}
+    private userService: UserService,
+    private toastr: ToastrService
+  ) {}
 
-  isValid(username: string, password1:string, password2: string): boolean{
-    if(username=='' || password1=='' || password2==''){
-      this.error = "Uzupełnij wszyskie pola";
+  isValid(username: string, password1: string, password2: string): boolean {
+    if (username == '' || password1 == '' || password2 == '') {
+      this.errorMessage = 'Uzupełnij wszyskie pola';
       return false;
     }
-    if(password1!==password2){
-      this.error = "Hasła nie są identyczne";
+    if (password1 !== password2) {
+      this.errorMessage = 'Hasła nie są identyczne';
       return false;
     }
     return true;
   }
-  clearError(){
-    this.error='';
+  onUserRegister(user: User): void {
+    this.userService.registerUser(user).subscribe({
+      next: (data) => console.log(data),
+      error: (e) => console.error(e.error),
+      complete: () => console.log('poszlo'),
+    });
   }
-  onUserRegister(user: User):void{
-    this.userService.registerUser(user).subscribe(
-      {
-        error: (e) => console.error(e.error),
-        complete: () => console.info('User registered') 
-      }
+  onFormSubmit(): void {
+    if (
+      this.isValid(
+        this.registerForm.value.username!,
+        this.registerForm.value.password1!,
+        this.registerForm.value.password2!
       )
-  }
-  onFormSubmit():void{
-    // if(this.isValid(this.registerForm.value.username!, this.registerForm.value.password1!, this.registerForm.value.password2!)){
+    ) {
       this.user.username = this.registerForm.value.username!;
       this.user.password = this.registerForm.value.password1!;
       this.onUserRegister(this.user);
-    // }
-    // return;
+    } else {
+      this.toastr.error(this.errorMessage, 'Błąd!');
+    }
+    return;
   }
 
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

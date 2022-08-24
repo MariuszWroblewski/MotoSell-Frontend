@@ -6,28 +6,24 @@ import { OfferService } from '../../services/offer/offer.service';
 @Component({
   selector: 'app-my-offer-details',
   templateUrl: './my-offer-details.component.html',
-  styleUrls: ['./my-offer-details.component.css']
+  styleUrls: ['./my-offer-details.component.css'],
 })
 export class MyOfferDetailsComponent implements OnInit {
-  private id: number= 0;
+  private id: number = 0;
   offer!: Offer;
-  public subDestription:string = this.offer.description.substring(0,50);
-  constructor(private ar: ActivatedRoute,
-    private offerService: OfferService) { }
+  public subDestription: string = this.offer.description.substring(0, 50);
+  constructor(private ar: ActivatedRoute, private offerService: OfferService) {}
 
-  onGetMyOffer(id: number):void{
-    this.offerService.getUserOfferDetails(id).subscribe(
-      {
-        next: (data) => this.offer=data,
-        error: (e) => console.error(e),
-        complete: () => console.info('complete')
-      }
-      )
+  onGetMyOffer(id: number): void {
+    this.offerService.getUserOfferDetails(id).subscribe({
+      next: (data) => (this.offer = data),
+      error: (e) => console.error(e),
+      complete: () => console.info('complete'),
+    });
   }
   ngOnInit(): void {
-    this.ar.paramMap.subscribe(params =>{
+    this.ar.paramMap.subscribe((params) => {
       this.id = Number(params.get('id'));
-    })
+    });
   }
-
 }

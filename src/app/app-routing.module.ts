@@ -14,14 +14,26 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'details/:id', component: OfferDetailsComponent },
-  { path: 'add', component: AddOfferComponent, canActivate: [AuthGuardService] },
-  { path: 'my-offers', component: MyOffersComponent, canActivate: [AuthGuardService] },
-  { path: 'my-offers/details/:id', component: MyOfferDetailsComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'add',
+    component: AddOfferComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'my-offers',
+    component: MyOffersComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'my-offers/details/:id',
+    component: MyOfferDetailsComponent,
+    canActivate: [AuthGuardService],
+  },
   { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

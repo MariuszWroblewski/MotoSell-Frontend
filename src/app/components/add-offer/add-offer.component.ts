@@ -7,25 +7,24 @@ import { Offer } from '../../interfaces/offer';
 @Component({
   selector: 'app-add-offer',
   templateUrl: './add-offer.component.html',
-  styleUrls: ['./add-offer.component.css']
+  styleUrls: ['./add-offer.component.css'],
 })
 export class AddOfferComponent implements OnInit {
-
   token: any = this.userServide.decodeToken();
   user: string = this.token.user_id;
   year: number = new Date().getFullYear();
   formData = new FormData();
   categories = [
-    {name: 'Osobowy', abbrev: 'osobowy'},
-    {name: 'Motocykl', abbrev: 'motocykl'},
-    {name: 'Ciężarowy', abbrev: 'ciezarowy'},
+    { name: 'Osobowy', abbrev: 'osobowy' },
+    { name: 'Motocykl', abbrev: 'motocykl' },
+    { name: 'Ciężarowy', abbrev: 'ciezarowy' },
   ];
   fuel = [
-    {name: 'Benzyna', abbrev: 'pb'},
-    {name: 'Diesel', abbrev: 'on'},
-    {name: 'LPG', abbrev: 'lpg'},
+    { name: 'Benzyna', abbrev: 'pb' },
+    { name: 'Diesel', abbrev: 'on' },
+    { name: 'LPG', abbrev: 'lpg' },
   ];
-  offer: Offer={
+  offer: Offer = {
     title: '',
     description: '',
     brand: '',
@@ -57,33 +56,31 @@ export class AddOfferComponent implements OnInit {
     user: new FormControl(''),
     image: new FormControl(null),
     is_pub: new FormControl(false),
-    pub_date : new FormControl(null),
+    pub_date: new FormControl(null),
   });
-  constructor(private offerService: OfferService,
-    private userServide: UserService) { }
-  onOfferAdd(offer: FormData):void{
-    this.offerService.postOffer(offer).subscribe(
-      {
-        next: (data) => console.log(data),
-        error: (e) => console.error(e.error),
-        complete: () => console.log("offer POSTed") 
-      }
-      )
+  constructor(
+    private offerService: OfferService,
+    private userServide: UserService
+  ) {}
+  onOfferAdd(offer: FormData): void {
+    this.offerService.postOffer(offer).subscribe({
+      next: (data) => console.log(data),
+      error: (e) => console.error(e.error),
+      complete: () => console.log('offer POSTed'),
+    });
   }
-  formatDate(date:string) {
+  formatDate(date: string) {
     var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
 
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
-}
-  onFormSubmit():void{
+  }
+  onFormSubmit(): void {
     console.log('done');
     // this.offer.title = this.addOfferForm.value.title!;
     this.formData.append('title', this.addOfferForm.value.title!);
@@ -96,7 +93,10 @@ export class AddOfferComponent implements OnInit {
     // this.offer.model = this.addOfferForm.value.model!;
     this.formData.append('model', this.addOfferForm.value.model!);
     // this.offer.production_year = this.addOfferForm.value.production_year!;
-    this.formData.append('production_year', this.addOfferForm.value.production_year!);
+    this.formData.append(
+      'production_year',
+      this.addOfferForm.value.production_year!
+    );
     // this.offer.mileage = this.addOfferForm.value.mileage!;
     this.formData.append('mileage', this.addOfferForm.value.mileage!);
     // this.offer.capacity = this.addOfferForm.value.capacity!;
@@ -107,20 +107,16 @@ export class AddOfferComponent implements OnInit {
     this.formData.append('fuel', this.addOfferForm.value.fuel!.abbrev);
     // console.log(this.formData.values());
     console.log(this.formData.get('title'));
-    
+
     // this.offer.image = this.addOfferForm.value.image!;
     const checkBox: any = document.querySelector('#is_pub')!;
-    if(checkBox.checked)
-    {
+    if (checkBox.checked) {
       this.formData.append('is_pub', 'true');
-      this.formData.append('pub_date', this.formatDate(new Date().toString()))
+      this.formData.append('pub_date', this.formatDate(new Date().toString()));
     }
     console.log(this.onOfferAdd(this.formData));
   }
 
-  ngOnInit(): void {
-    
-  }
-  
+  ngOnInit(): void {}
 }
 //skonfigurować poprawnie nagłówki

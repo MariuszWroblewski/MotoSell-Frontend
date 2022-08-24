@@ -6,26 +6,24 @@ import { OfferService } from '../../services/offer/offer.service';
 @Component({
   selector: 'app-offers-list',
   templateUrl: './offers-list.component.html',
-  styleUrls: ['./offers-list.component.css']
+  styleUrls: ['./offers-list.component.css'],
 })
 export class OffersListComponent implements OnInit {
-
   offers: Offer[] = [];
-  constructor(private offerService: OfferService,
-    private userService :UserService){}
+  constructor(
+    private offerService: OfferService,
+    private userService: UserService
+  ) {}
 
-  onGetOffers():void{
-    this.offerService.getOffers().subscribe(
-      {
-        next: (data) => this.offers=data,
-        error: (e) => console.error(e),
-        complete: () => console.log("Offers Getting done"), 
-      }
-  )
+  onGetOffers(): void {
+    this.offerService.getOffers().subscribe({
+      next: (data) => (this.offers = data),
+      error: (e) => console.error(e),
+      complete: () => console.log('Offers Getting done'),
+    });
   }
 
   ngOnInit(): void {
     this.onGetOffers();
   }
-
 }

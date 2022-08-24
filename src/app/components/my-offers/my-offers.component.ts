@@ -6,31 +6,28 @@ import { UserService } from '../../services/user/user.service';
 @Component({
   selector: 'app-my-offers',
   templateUrl: './my-offers.component.html',
-  styleUrls: ['./my-offers.component.css']
+  styleUrls: ['./my-offers.component.css'],
 })
 export class MyOffersComponent implements OnInit {
-
   offers: Offer[] = [];
-  constructor(private offerService: OfferService,
-    private userService :UserService
-  ){}
+  constructor(
+    private offerService: OfferService,
+    private userService: UserService
+  ) {}
 
-  onGetOffers():void{
-    this.offerService.getUserOffers().subscribe(
-      {
-        next: (data) => this.offers=data,
-        error: (e) => console.error(e),
-        complete: () => {
-          console.log(this.offers);
-        } 
-      }
-  )
+  onGetOffers(): void {
+    this.offerService.getUserOffers().subscribe({
+      next: (data) => (this.offers = data),
+      error: (e) => console.error(e),
+      complete: () => {
+        console.log(this.offers);
+      },
+    });
   }
 
   ngOnInit(): void {
     this.onGetOffers();
     let toke = this.userService.decodeToken();
-    console.log("tokrn",toke );
+    console.log('tokrn', toke);
   }
-
 }
