@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Offer } from '../../interfaces/offer';
 import { OfferService } from '../../services/offer/offer.service';
 import { UserService } from '../../services/user/user.service';
@@ -10,9 +11,11 @@ import { UserService } from '../../services/user/user.service';
 })
 export class MyOffersComponent implements OnInit {
   offers: Offer[] = [];
+
   constructor(
     private offerService: OfferService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   onGetOffers(): void {
@@ -24,10 +27,17 @@ export class MyOffersComponent implements OnInit {
       },
     });
   }
-
+  onDeleteOffer(id: number): void {
+    this.offerService.deleteUserOffer(id).subscribe({
+      next: (data) => console.log(data),
+      error: (e) => console.error(e),
+      complete: () => console.log('dene deleting'),
+    });
+  }
+  goToPage(pageName: string) {
+    this.router.navigate([`${pageName}`]);
+  }
   ngOnInit(): void {
     this.onGetOffers();
-    let toke = this.userService.decodeToken();
-    console.log('tokrn', toke);
   }
 }

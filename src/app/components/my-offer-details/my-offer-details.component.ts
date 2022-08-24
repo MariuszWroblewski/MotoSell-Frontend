@@ -11,7 +11,6 @@ import { OfferService } from '../../services/offer/offer.service';
 export class MyOfferDetailsComponent implements OnInit {
   private id: number = 0;
   offer!: Offer;
-  public subDestription: string = this.offer.description.substring(0, 50);
   constructor(private ar: ActivatedRoute, private offerService: OfferService) {}
 
   onGetMyOffer(id: number): void {
@@ -25,5 +24,6 @@ export class MyOfferDetailsComponent implements OnInit {
     this.ar.paramMap.subscribe((params) => {
       this.id = Number(params.get('id'));
     });
+    this.onGetMyOffer(this.id);
   }
 }

@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: '', component: OffersListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'details/:id', component: OfferDetailsComponent },
   {
     path: 'add',
     component: AddOfferComponent,
@@ -24,12 +23,13 @@ const routes: Routes = [
     component: MyOffersComponent,
     canActivate: [AuthGuardService],
   },
+  { path: 'details/:id', component: OfferDetailsComponent },
   {
-    path: 'my-offers/details/:id',
+    path: 'mydetails/:id',
     component: MyOfferDetailsComponent,
     canActivate: [AuthGuardService],
   },
-  { path: '**', redirectTo: '' },
+  // { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

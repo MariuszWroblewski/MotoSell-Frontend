@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Offer } from '../../interfaces/offer';
 import { environment } from 'src/environments/environment';
 
@@ -27,10 +27,17 @@ export class OfferService {
   postOffer(offer: FormData): Observable<FormData> {
     return this.http.post<FormData>(`${this.apiUrl}`, offer);
   }
-  deleteUserOffer(id: string): Observable<Offer> {
-    return this.http.delete<Offer>(`${this.apiUrl}/my-offers/${id}`);
+  deleteUserOffer(id: number): Observable<Offer> {
+    return this.http
+      .delete<Offer>(`${this.apiUrl}/my-offers/${id}`)
+      .pipe(tap(() => window.location.reload()));
   }
   patchUserOffer(id: string, body: Offer): Observable<Offer> {
     return this.http.put<Offer>(`${this.apiUrl}/my-offers/${id}`, body);
+  }
+  publishUserOffer(id: string): Observable<Offer> {
+    return this.http.patch<Offer>(`${this.apiUrl}/my-offers/publish/${id}`, {
+      is_pub: true,
+    });
   }
 }
