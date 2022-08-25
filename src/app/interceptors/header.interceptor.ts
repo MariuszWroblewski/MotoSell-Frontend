@@ -22,13 +22,15 @@ export class HeaderInterceptor implements HttpInterceptor {
         setHeaders: { Authorization: `JWT ${token}` },
       });
     }
-    // if (!request.headers.has('Content-Type')) {
-    // request = request.clone({
-    // setHeaders: { 'Content-Type': 'application/json' },
-    // setHeaders: { 'Content-Type': 'multipart/form-data' },
-    // });
-    // request = request.clone({ setHeaders: {'Content-Type': 'multipart/form-data'}});
-    // }
+    if (
+      !request.headers.has('Content-Type') &&
+      !request.url.includes('offers') &&
+      request.method == 'GET'
+    ) {
+      request = request.clone({
+        setHeaders: { 'Content-Type': 'application/json' },
+      });
+    }
     return next.handle(request);
   }
 }

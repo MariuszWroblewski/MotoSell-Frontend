@@ -29,7 +29,12 @@ const routes: Routes = [
     component: MyOfferDetailsComponent,
     canActivate: [AuthGuardService],
   },
-  // { path: '**', redirectTo: '' },
+  {
+    path: 'edit/:id',
+    component: OfferDetailsComponent,
+    canActivate: [AuthGuardService],
+  },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

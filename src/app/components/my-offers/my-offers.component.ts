@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Offer } from '../../interfaces/offer';
 import { OfferService } from '../../services/offer/offer.service';
 
@@ -8,10 +9,15 @@ import { OfferService } from '../../services/offer/offer.service';
   templateUrl: './my-offers.component.html',
   styleUrls: ['./my-offers.component.css'],
 })
-export class MyOffersComponent implements OnInit {
+export class MyOffersComponent implements OnInit, OnDestroy {
   offers: Offer[] = [];
-
-  constructor(private offerService: OfferService, private router: Router) {}
+  isDeleted: any = sessionStorage.getItem('deleted');
+  isPublished: any = sessionStorage.getItem('published');
+  constructor(
+    private offerService: OfferService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   onGetOffers(): void {
     this.offerService.getUserOffers().subscribe({
@@ -41,5 +47,15 @@ export class MyOffersComponent implements OnInit {
   }
   ngOnInit(): void {
     this.onGetOffers();
+    if (this.isDeleted) {
+      this.toastr.info('Oferta została usunięta', 'Udało się!');
+    }
+    if (this.isPublished) {
+      this.toastr.info('Oferta została opublikowana', 'Udało się!');
+    }
+  }
+  ngOnDestroy(): void {
+    sessionStorage.removeItem('deleted');
+    sessionStorage.removeItem('published');
   }
 }

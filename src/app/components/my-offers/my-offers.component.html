@@ -12,15 +12,15 @@
   <div class="card mb-3"  >
     <div class="row g-0">
       <div class="col-md-4">
-        <img *ngIf=!offer.image src="../../../assets//images/placeholder.png" class="img-fluid rounded-start w-auto" alt="car_img">
-        <img *ngIf=offer.image src={{offer.image}} class="img-fluid rounded-start w-auto" alt="car_img">
+        <img *ngIf=!offer.image src="../../../assets//images/placeholder.png" width="500"  height="300" class="img-fluid rounded-start w-auto" alt="car_img">
+        <img *ngIf=offer.image src={{offer.image}} class="img-fluid rounded-start w-auto" width="500"  height="300" alt="car_img">
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <div class="row">
             <div class="col-md-10">
               <h5 class="card-title">
-                Card title
+                {{offer.brand}} {{offer.model}}
               </h5>
             </div>
             <div class="col-md-1 justify-content-end">

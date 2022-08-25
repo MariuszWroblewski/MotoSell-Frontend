@@ -4,13 +4,19 @@ import { Observable, tap } from 'rxjs';
 import { Offer } from '../../interfaces/offer';
 import { environment } from 'src/environments/environment';
 import { formatDate } from '@angular/common';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OfferService {
   private apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   getOffers(): Observable<Offer[]> {
     return this.http.get<Offer[]>(`${this.apiUrl}`);
@@ -25,15 +31,31 @@ export class OfferService {
     return this.http.get<Offer>(`${this.apiUrl}/my-offers/${id}`);
   }
   postOffer(offer: FormData): Observable<FormData> {
-    return this.http.post<FormData>(`${this.apiUrl}`, offer);
+    return this.http
+      .post<FormData>(`${this.apiUrl}`, offer)
+      .pipe(
+        tap(() =>
+          this.router
+            .navigate(['my-offers'])
+            .then(() =>
+              this.toastr.success(
+                'Oferta została pomyślnie utworzona',
+                'Udało się!'
+              )
+            )
+        )
+      );
   }
   deleteUserOffer(id: number): Observable<Offer> {
-    return this.http
-      .delete<Offer>(`${this.apiUrl}/my-offers/${id}`)
-      .pipe(tap(() => window.location.reload()));
+    return this.http.delete<Offer>(`${this.apiUrl}/my-offers/${id}`).pipe(
+      tap(() => {
+        window.location.reload();
+        sessionStorage.setItem('deleted', 'true');
+      })
+    );
   }
   patchUserOffer(id: string, body: Offer): Observable<Offer> {
-    return this.http.put<Offer>(`${this.apiUrl}/my-offers/${id}`, body);
+    return this.http.patch<Offer>(`${this.apiUrl}/my-offers/${id}`, body);
   }
   publishUserOffer(id: number): Observable<Offer> {
     return this.http
@@ -41,6 +63,11 @@ export class OfferService {
         is_pub: true,
         pub_date: formatDate(new Date(), 'yyy-MM-dd', 'en'),
       })
-      .pipe(tap(() => window.location.reload()));
+      .pipe(
+        tap(() => {
+          window.location.reload();
+          sessionStorage.setItem('published', 'true');
+        })
+      );
   }
 }

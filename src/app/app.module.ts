@@ -16,6 +16,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { EditOfferComponent } from './components/edit-offer/edit-offer.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ToastrModule } from 'ngx-toastr';
     AddOfferComponent,
     MyOffersComponent,
     MyOfferDetailsComponent,
+    EditOfferComponent,
   ],
   imports: [
     BrowserModule,
