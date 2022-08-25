@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Offer } from '../../interfaces/offer';
 import { environment } from 'src/environments/environment';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OfferService {
   private apiUrl = environment.apiUrl;
-
   constructor(private http: HttpClient) {}
 
   getOffers(): Observable<Offer[]> {
@@ -35,9 +35,12 @@ export class OfferService {
   patchUserOffer(id: string, body: Offer): Observable<Offer> {
     return this.http.put<Offer>(`${this.apiUrl}/my-offers/${id}`, body);
   }
-  publishUserOffer(id: string): Observable<Offer> {
-    return this.http.patch<Offer>(`${this.apiUrl}/my-offers/publish/${id}`, {
-      is_pub: true,
-    });
+  publishUserOffer(id: number): Observable<Offer> {
+    return this.http
+      .patch<Offer>(`${this.apiUrl}/my-offers/publish/${id}`, {
+        is_pub: true,
+        pub_date: formatDate(new Date(), 'yyy-MM-dd', 'en'),
+      })
+      .pipe(tap(() => window.location.reload()));
   }
 }

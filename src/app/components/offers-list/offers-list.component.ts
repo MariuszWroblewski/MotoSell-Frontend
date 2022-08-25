@@ -10,10 +10,7 @@ import { OfferService } from '../../services/offer/offer.service';
 })
 export class OffersListComponent implements OnInit {
   offers: Offer[] = [];
-  constructor(
-    private offerService: OfferService,
-    private userService: UserService
-  ) {}
+  constructor(private offerService: OfferService) {}
 
   onGetOffers(): void {
     this.offerService.getOffers().subscribe({

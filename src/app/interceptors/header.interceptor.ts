@@ -24,7 +24,8 @@ export class HeaderInterceptor implements HttpInterceptor {
     }
     if (!request.headers.has('Content-Type')) {
       request = request.clone({
-        setHeaders: { 'Content-Type': 'application/json' },
+        // setHeaders: { 'Content-Type': 'application/json' },
+        setHeaders: { 'Content-Type': 'multipart/form-data' },
       });
       // request = request.clone({ setHeaders: {'Content-Type': 'multipart/form-data'}});
     }
