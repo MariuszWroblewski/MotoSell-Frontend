@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -54,8 +55,21 @@ export class OfferService {
       })
     );
   }
-  patchUserOffer(id: string, body: Offer): Observable<Offer> {
-    return this.http.patch<Offer>(`${this.apiUrl}/my-offers/${id}`, body);
+  putUserOffer(id: string, body: FormData): Observable<FormData> {
+    return this.http
+      .put<FormData>(`${this.apiUrl}/my-offers/${id}`, body)
+      .pipe(
+        tap(() =>
+          this.router
+            .navigate(['mydetails'])
+            .then(() =>
+              this.toastr.success(
+                'Oferta została pomyślnie edytowana',
+                'Udało się!'
+              )
+            )
+        )
+      );
   }
   publishUserOffer(id: number): Observable<Offer> {
     return this.http

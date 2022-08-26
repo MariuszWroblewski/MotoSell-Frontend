@@ -34,8 +34,8 @@
           <div class="d-flex align-items-start">
             <div *ngIf=offer.is_pub class="col justify-content-start"><p class="card-text"><small class="text-muted">Opublikowano {{offer.pub_date}}</small></p></div>
             <div *ngIf=!offer.is_pub  class="col justify-content-start"><p class="card-text"><small class="text-muted">Jeszcze nie opublokowano</small></p></div>
-            <div class="col d-flex flex-row-reverse text-right mr-0"><a class="btn btn-dark" routerLink="/mydetails/{{offer.id}}">Szczegóły</a></div>
-
+            <div class="col d-flex  text-right"><a class="btn btn-dark" routerLink="/mydetails/{{offer.id}}">Szczegóły</a></div>
+            <div class="col d-flex flex-row-reverse text-right"><a class="btn btn-dark" routerLink="/edit/{{offer.id}}">Edytuj</a></div>
         </div>
         </div>
       </div>

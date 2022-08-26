@@ -8,6 +8,7 @@ import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { MyOffersComponent } from './components/my-offers/my-offers.component';
 import { AuthGuardService } from './services/authGuard/auth-guard.service';
 import { MyOfferDetailsComponent } from './components/my-offer-details/my-offer-details.component';
+import { EditOfferComponent } from './components/edit-offer/edit-offer.component';
 
 const routes: Routes = [
   { path: '', component: OffersListComponent },
@@ -31,7 +32,7 @@ const routes: Routes = [
   },
   {
     path: 'edit/:id',
-    component: OfferDetailsComponent,
+    component: EditOfferComponent,
     canActivate: [AuthGuardService],
   },
   { path: '**', redirectTo: '' },
