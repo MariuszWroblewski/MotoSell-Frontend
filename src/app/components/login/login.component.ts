@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { User } from '../../interfaces/user';
@@ -9,11 +9,12 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
+  isRegistered = sessionStorage.getItem('registered');
   private user: User = {
     username: '',
     password: '',
@@ -24,6 +25,9 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService
   ) {}
+  ngOnDestroy(): void {
+    sessionStorage.removeItem('registered');
+  }
   isValid(username: string, password: string): boolean {
     if (username == '' || password == '') {
       this.errorMessage = 'Uzupełnij wszyskie pola';
@@ -31,7 +35,14 @@ export class LoginComponent implements OnInit {
     }
     return true;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.isRegistered) {
+      this.toastr.success(
+        'Pomyślnie utworzono konto. Możesz się teraz na nie zalogować',
+        'Udało się!'
+      );
+    }
+  }
   onUserLogin(user: User): void {
     this.userService.login(user).subscribe({
       error: (e) => console.error(e.error),

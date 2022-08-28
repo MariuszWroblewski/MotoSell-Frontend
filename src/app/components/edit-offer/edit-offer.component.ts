@@ -43,11 +43,13 @@ export class EditOfferComponent implements OnInit {
     });
   }
   onEditOffer(offer: FormData): void {
-    this.offerService.postOffer(offer).subscribe({
-      next: (data) => console.log(data),
-      error: (e) => console.error(e.error),
-      complete: () => console.log('offer POSTed'),
-    });
+    this.offerService
+      .patchUserOffer(this.form.get('id')?.value, offer)
+      .subscribe({
+        next: (data) => console.log(data),
+        error: (e) => console.error(e.error),
+        complete: () => console.log('offer PATCHed'),
+      });
   }
   onFormSubmit(): void {
     this.formData.append('title', this.form.get('title')?.value);
@@ -70,6 +72,8 @@ export class EditOfferComponent implements OnInit {
         'pub_date',
         formatDate(new Date(), 'yyyy-MM-dd', 'en')
       );
+    } else {
+      this.formData.append('is_pub', 'false');
     }
     this.onEditOffer(this.formData);
   }
@@ -78,21 +82,8 @@ export class EditOfferComponent implements OnInit {
       this.id = Number(params.get('id'));
     });
     this.onGetMyOffer(this.id);
-    // this.form = this.formBuilder.group({
-    //   image: [''],
-    //   title: [this.offer.title],
-    //   description: [this.offer.description],
-    //   category: [this.offer.category],
-    //   fuel: [this.offer.fuel],
-    //   brand: [this.offer.brand],
-    //   model: [this.offer.model],
-    //   production_year: [this.offer.production_year],
-    //   mileage: [this.offer.mileage],
-    //   capacity: [this.offer.capacity],
-    //   power: [this.offer.power],
-    //   is_pub: false,
-    // });
     this.form = this.formBuilder.group({
+      id: [''],
       image: [''],
       title: [''],
       description: [''],
@@ -106,5 +97,6 @@ export class EditOfferComponent implements OnInit {
       power: [''],
       is_pub: false,
     });
+    // this.form.get('title')?.setValue(this.offer.title);
   }
 }

@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
     this.userService.registerUser(user).subscribe({
       next: (data) => console.log(data),
       error: (e) => console.error(e.error),
-      complete: () => console.log('poszlo'),
+      complete: () => console.log(''),
     });
   }
   onFormSubmit(): void {

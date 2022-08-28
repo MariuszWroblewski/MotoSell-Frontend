@@ -21,7 +21,12 @@ export class UserService {
   ) {}
 
   registerUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.apiAuth}/register/`, user);
+    return this.http.post<User>(`${this.apiAuth}/register/`, user).pipe(
+      tap((res) => {
+        sessionStorage.setItem('registered', 'true');
+        this.router.navigate(['login']);
+      })
+    );
   }
 
   login(user: User) {
@@ -41,6 +46,7 @@ export class UserService {
   logout() {
     localStorage.clear();
     this.router.navigate(['']).then(() => {
+      sessionStorage.setItem('logout', 'true');
       window.location.reload();
     });
   }

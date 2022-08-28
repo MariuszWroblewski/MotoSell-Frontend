@@ -2,6 +2,10 @@
     <h1 class=" text-center">Edytuj ofertę</h1>
     <div class="container w-75 mt-3">
         <form (ngSubmit)="onFormSubmit()" [formGroup]="form" enctype="multipart/form-data">
+            <div class="form-outline mb-2" style="display: none;">
+                <label class="form-label" for="id">ID:</label>
+                <textarea class="form-control" id="id" name="id" rows="3"  formControlName="id" [ngModel]="offer.id"></textarea>
+            </div>
             <div class="form-outline mb-2">
                 <label class="form-label" for="title">Tytuł:</label>
                 <input type="text" id="title" name="title" class="form-control"  formControlName="title" [ngModel]="offer.title"/>
@@ -55,7 +59,7 @@
                 <input class="form-control" type="file" id="image" name="image" (change)="onChange($event)">
               </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="is_pub" name="is_pub" checked="offer.is_pub">
+                <input class="form-check-input" type="checkbox" id="is_pub" name="is_pub" checked="offer.is_pub" formControlName="is_pub" [ngModel]="offer.is_pub">
                 <label class="form-check-label" for="is_pub">
                   Opublikować ofertę?
                 </label>

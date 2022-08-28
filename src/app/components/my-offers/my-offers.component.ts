@@ -48,10 +48,10 @@ export class MyOffersComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.onGetOffers();
     if (this.isDeleted) {
-      this.toastr.info('Oferta została usunięta', 'Udało się!');
+      this.toastr.success('Oferta została usunięta', 'Udało się!');
     }
     if (this.isPublished) {
-      this.toastr.info('Oferta została opublikowana', 'Udało się!');
+      this.toastr.success('Oferta została opublikowana', 'Udało się!');
     }
   }
   ngOnDestroy(): void {

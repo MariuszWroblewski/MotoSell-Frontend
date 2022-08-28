@@ -55,13 +55,13 @@ export class OfferService {
       })
     );
   }
-  putUserOffer(id: string, body: FormData): Observable<FormData> {
+  patchUserOffer(id: string, body: FormData): Observable<FormData> {
     return this.http
-      .put<FormData>(`${this.apiUrl}/my-offers/${id}`, body)
+      .patch<FormData>(`${this.apiUrl}/my-offers/${id}`, body)
       .pipe(
         tap(() =>
           this.router
-            .navigate(['mydetails'])
+            .navigate(['my-offers/'])
             .then(() =>
               this.toastr.success(
                 'Oferta została pomyślnie edytowana',
@@ -73,7 +73,7 @@ export class OfferService {
   }
   publishUserOffer(id: number): Observable<Offer> {
     return this.http
-      .patch<Offer>(`${this.apiUrl}/my-offers/publish/${id}`, {
+      .put<Offer>(`${this.apiUrl}/my-offers/publish/${id}`, {
         is_pub: true,
         pub_date: formatDate(new Date(), 'yyy-MM-dd', 'en'),
       })
