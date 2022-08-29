@@ -16,7 +16,7 @@
             </div>
             <div class="form-outline mb-2">
                 <label class="form-label" for="category">Kategoria pojazdu:</label>
-                <select class="form-select form-select-lg" formControlName="category" id="category" name="category" aria-label="Osobowy" [ngModel]="categories">
+                <select class="form-select form-select-lg" formControlName="category" id="category" name="category" aria-label="Osobowy">
                     <option *ngFor="let category of categories" [ngValue]="category">
                       {{ category.name }}
                     </option>
@@ -24,7 +24,7 @@
             </div>
             <div class="form-outline mb-2">
                 <label class="form-label" for="fuel">Rodzaj paliwa:</label>
-                <select class="form-select form-select-lg" formControlName="fuel" id="fuel" name="fuel" aria-label="Benzyna" [ngModel]="offer.fuel">
+                <select class="form-select form-select-lg" formControlName="fuel" id="fuel" name="fuel" aria-label="Benzyna">
                     <option *ngFor="let fuel of fuel" [ngValue]="fuel">
                       {{ fuel.name }}
                     </option>

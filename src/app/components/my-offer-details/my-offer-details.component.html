@@ -20,8 +20,12 @@
             <p class="card-text mt-3">{{offer.description}}</p>
             <div class="d-flex flex-row">
                 <div class="col justify-content-start">
-                    <p class="card-text">
+                    <p *ngIf="offer.is_pub" class="card-text">
                         <small class="text-muted">Opublikowano {{offer.pub_date}}
+                        </small>
+                    </p>
+                    <p *ngIf="!offer.is_pub" class="card-text">
+                        <small class="text-muted">Jeszcze nie opublikowano
                         </small>
                     </p>
                 </div>

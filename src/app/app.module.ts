@@ -38,7 +38,7 @@ import { EditOfferComponent } from './components/edit-offer/edit-offer.component
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 6000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
